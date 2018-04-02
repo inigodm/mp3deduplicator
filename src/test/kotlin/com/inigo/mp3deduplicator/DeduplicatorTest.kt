@@ -7,17 +7,18 @@ import org.junit.Test
 class DeduplicatorTest {
     @Test
     fun testVoidPath(){
-        assertPath("", SongInfo())
+        assertPath(listOf<SongInfo>(), listOf<SongInfo>())
     }
 
     @Test
     fun testOneSongDirectory(){
-        assertPath("/home/inigo/projectsgit/mp3deduplicator/src/test/resources/one", SongInfo())
+        var si = SongInfo("Thunderstruck", "/music/thunderstruck.mp3")
+        assertPath(listOf<SongInfo>(si), listOf<SongInfo>())
     }
 
-    fun assertPath(path: String, expectedSongInfo: SongInfo){
+    fun assertPath(songsInDirectory: List<SongInfo>, expectedSongInfo: List<SongInfo>){
         var dup = Deduplicator()
-        var si = dup.deduplicate(path)
+        var si = dup.deduplicate(songsInDirectory)
         Assert.assertEquals(expectedSongInfo, si)
     }
 }
