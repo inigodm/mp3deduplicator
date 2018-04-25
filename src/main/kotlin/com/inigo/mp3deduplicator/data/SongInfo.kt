@@ -4,6 +4,7 @@ import java.text.Normalizer
 
 data class SongInfo(val title: String = "",
                     val path: String = "",
+                    val duplicates: MutableList<SongInfo> = mutableListOf<SongInfo>(),
                     val hash: String = Normalizer
                 .normalize(title.toLowerCase(),
                         Normalizer.Form.NFD).replace("[^a-z0-9]".toRegex(),
