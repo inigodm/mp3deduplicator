@@ -6,17 +6,23 @@ import org.junit.Test
 
 class DeduplicatorTest {
     @Test
-    fun testVoidPath(){
-        assertPath(listOf<SongInfo>(), listOf<SongInfo>())
+    fun testVoid(){
+        assertDeduplication(listOf<SongInfo>(), listOf<SongInfo>())
     }
 
     @Test
-    fun testOneSongDirectory(){
+    fun testOneSong(){
         var si = SongInfo("Thunderstruck", "/music/thunderstruck.mp3")
-        assertPath(listOf<SongInfo>(si), listOf<SongInfo>())
+        assertDeduplication(listOf<SongInfo>(si), listOf<SongInfo>())
     }
 
-    fun assertPath(songsInDirectory: List<SongInfo>, expectedSongInfo: List<SongInfo>){
+    @Test
+    fun testTwoDifferentSongs(){
+        var si = SongInfo("Thunderstruck", "/music/thunderstruck.mp3")
+        assertDeduplication(listOf<SongInfo>(si, SongInfo("Take me to the moon", "/music/takemetothemoon.mp3")), listOf<SongInfo>())
+    }
+
+    fun assertDeduplication(songsInDirectory: List<SongInfo>, expectedSongInfo: List<SongInfo>){
         var dup = Deduplicator()
         var si = dup.deduplicate(songsInDirectory)
         Assert.assertEquals(expectedSongInfo, si)
