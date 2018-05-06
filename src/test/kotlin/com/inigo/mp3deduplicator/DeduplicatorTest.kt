@@ -30,6 +30,13 @@ class DeduplicatorTest {
         assertDeduplication(listOf<SongInfo>(si, si2), listOf<SongInfo>(si, si2))
     }
 
+    @Test
+    fun testMoreEqualSongs(){
+        var si = SongInfo("Thunderstruck-01", "/music/thunderstruck.mp3")
+        var si2 = SongInfo("Thunderstruck", "/music/thunderstruck.mp3")
+        assertDeduplication(listOf<SongInfo>(si, si2), listOf<SongInfo>(si, si2))
+    }
+
     private fun assertDeduplication(songs: List<SongInfo>, expectedDups: List<SongInfo>){
         var dup = Deduplicator()
         dup.findDuplicates(songs)
